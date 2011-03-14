@@ -1,0 +1,13 @@
+Example usage of ofxTesseract looks like:
+
+#include "ofxTesseract.h"
+...
+ofxTesseract ocr;
+ofImage img;
+...
+ocr.setup();
+ocr.setWhitelist("0123456789");
+tess.setAccuracy(ofxTesseract::ACCURATE);
+img.loadImage("text.png");
+string result = ocr.findText(img);
+cout << result << endl;
