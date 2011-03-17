@@ -1,3 +1,11 @@
+Make sure to download a copy of eng.traineddata (or whatever language you want to detect) from the tesseract-ocr website:
+
+https://code.google.com/p/tesseract-ocr/downloads/detail?name=eng.traineddata.gz&can=2&q=eng
+
+Once downloaded, it should be placed in your data directory under a special directory named 'tessdata':
+
+myApp/bin/data/tessdata/eng.traineddatat
+
 Example usage of ofxTesseract looks like:
 
 #include "ofxTesseract.h"
