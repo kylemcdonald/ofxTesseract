@@ -24,6 +24,22 @@ void ofxTesseract::setMode(ofxTesseractMode mode) {
 	tess.SetPageSegMode((tesseract::PageSegMode) mode);
 }
 
+ofxTesseract::ofxTesseractMode ofxTesseract::getMode(string modeName) {
+	if(modeName == "AUTO") {
+		return AUTO;
+	} else if(modeName == "COLUMN") {
+		return COLUMN;
+	} else if(modeName == "BLOCK") {
+		return BLOCK;
+	} else if(modeName == "LINE") {
+		return LINE;
+	} else if(modeName == "WORD") {
+		return WORD;
+	} else if(modeName == "CHAR") {
+		return CHAR;
+	}
+}
+
 void ofxTesseract::setAccuracy(ofxTesseractAccuracy accuracy) {
 	tess.SetAccuracyVSpeed((tesseract::AccuracyVSpeed) accuracy);
 }

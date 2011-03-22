@@ -40,6 +40,9 @@ public:
 	// by default this is ofxTesseract::AUTO
 	void setMode(ofxTesseractMode mode);
 	
+	// transform a mode name into a constant, for loading from XML files
+	static ofxTesseractMode getMode(string modeName);
+	
 	// either ofxTesseract::ACCURATE or ofxTesseract::FAST
 	// by default it is ofxTesseract::FAST
 	void setAccuracy(ofxTesseractAccuracy accuracy);
