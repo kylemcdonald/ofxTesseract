@@ -20,11 +20,11 @@ void ofxTesseract::setBlacklist(string blacklistCharacters) {
 	tess.SetVariable("tessedit_char_blacklist", blacklistCharacters.c_str());
 }
 
-void ofxTesseract::setMode(ofxTesseractMode mode) {
+void ofxTesseract::setMode(Mode mode) {
 	tess.SetPageSegMode((tesseract::PageSegMode) mode);
 }
 
-ofxTesseract::ofxTesseractMode ofxTesseract::getMode(string modeName) {
+ofxTesseract::Mode ofxTesseract::getMode(string modeName) {
 	if(modeName == "AUTO") {
 		return AUTO;
 	} else if(modeName == "COLUMN") {
@@ -40,7 +40,7 @@ ofxTesseract::ofxTesseractMode ofxTesseract::getMode(string modeName) {
 	}
 }
 
-void ofxTesseract::setAccuracy(ofxTesseractAccuracy accuracy) {
+void ofxTesseract::setAccuracy(Accuracy accuracy) {
 	tess.SetAccuracyVSpeed((tesseract::AccuracyVSpeed) accuracy);
 }
 

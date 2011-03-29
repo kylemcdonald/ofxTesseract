@@ -12,7 +12,7 @@
 
 class ofxTesseract {
 public:
-	enum ofxTesseractMode {
+	enum Mode {
 		AUTO = tesseract::PSM_AUTO,
 		COLUMN = tesseract::PSM_SINGLE_COLUMN,
 		BLOCK = tesseract::PSM_SINGLE_BLOCK,
@@ -21,7 +21,7 @@ public:
 		CHAR = tesseract::PSM_SINGLE_CHAR
 	};
 	
-	enum ofxTesseractAccuracy  {
+	enum Accuracy  {
 		ACCURATE = tesseract::AVS_MOST_ACCURATE,
 		FAST = tesseract::AVS_FASTEST
 	};
@@ -38,14 +38,14 @@ public:
 	
 	// provides a hint for how to segment things
 	// by default this is ofxTesseract::AUTO
-	void setMode(ofxTesseractMode mode);
+	void setMode(Mode mode);
 	
 	// transform a mode name into a constant, for loading from XML files
-	static ofxTesseractMode getMode(string modeName);
+	static Mode getMode(string modeName);
 	
 	// either ofxTesseract::ACCURATE or ofxTesseract::FAST
 	// by default it is ofxTesseract::FAST
-	void setAccuracy(ofxTesseractAccuracy accuracy);
+	void setAccuracy(Accuracy accuracy);
 		
 	// finally, do OCR on an image, or on an image within an roi
 	// make sure your text is at least 10 pixels tall
