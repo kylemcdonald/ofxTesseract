@@ -1,7 +1,7 @@
 #include "testApp.h"
 
 void testApp::setup(){
-	panel.setup("Control Panel", 5, 5, 280, 300);
+	panel.setup();
 	panel.addPanel("Preprocessing");
 	panel.addSlider("scale", "scale", 2.5, 1, 4);
 	panel.addSlider("medianSize", "medianSize", 2, 0, 12, true);
