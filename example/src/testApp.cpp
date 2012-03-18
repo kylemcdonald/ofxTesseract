@@ -5,6 +5,7 @@ void testApp::setup(){
 	panel.addPanel("Preprocessing");
 	panel.addSlider("scale", "scale", 2.5, 1, 4);
 	panel.addSlider("medianSize", "medianSize", 2, 0, 12, true);
+    //panel.loadSettings()
 
 	tess.setup();
 	tess.setWhitelist("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,");
@@ -51,7 +52,8 @@ string testApp::runOcr(float scale, int medianSize) {
 	// resize and median blur the image
 	scaled.resize(img.getWidth() * scale, img.getHeight() * scale);
 	medianBlur(scaled, medianSize);
-	
-	return tess.findText(scaled);
+
+	//return tess.findText(scaled);
+	return tess.findHOCRText(scaled);
 }
 

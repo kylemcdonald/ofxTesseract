@@ -53,6 +53,9 @@ public:
 	string findText(ofImage& img);
 	string findText(ofImage& img, ofRectangle& roi);
 	
+    string findHOCRText(ofImage& img);
+    string findHOCRText(ofImage& img, ofRectangle& roi);
+    
 protected:
 	tesseract::TessBaseAPI tess;
 };

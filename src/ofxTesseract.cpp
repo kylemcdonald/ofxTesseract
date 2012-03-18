@@ -60,3 +60,34 @@ string ofxTesseract::findText(ofImage& img, ofRectangle& roi) {
 		roi.width, roi.height
 	);
 }
+
+
+string ofxTesseract::findHOCRText(ofImage& img) {
+	ofRectangle roi(0, 0, img.getWidth(), img.getHeight());
+	return findHOCRText(img, roi);
+}
+
+string ofxTesseract::findHOCRText(ofImage& img, ofRectangle& roi) {
+	ofPixels& pixels = img.getPixelsRef();
+	int bytesPerPixel = pixels.getBytesPerPixel();
+ 
+    tess.SetImage(
+        pixels.getPixels(),
+        img.getWidth(),
+        img.getHeight(),
+        bytesPerPixel,
+        pixels.getWidth() * bytesPerPixel
+    );
+    
+    tess.SetRectangle(
+        roi.x, roi.y,
+        roi.width, roi.height
+    );
+
+    //returns 0
+    tess.Recognize(NULL);
+    
+    //return tess.GetUTF8Text(); // works fine
+    return tess.GetHOCRText(0); //crash & burn
+
+}
