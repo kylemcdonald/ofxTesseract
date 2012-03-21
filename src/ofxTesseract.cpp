@@ -16,7 +16,6 @@ void ofxTesseract::setInputName(const char* name) {
     tess.SetInputName(name);
 }
 
-
 void ofxTesseract::setWhitelist(string whitelistCharacters) {
 	tess.SetVariable("tessedit_char_whitelist", whitelistCharacters.c_str());
 }
@@ -75,7 +74,11 @@ string ofxTesseract::findText(ofPixels& pixels, ofRectangle& roi) {
                               );
 }
 
-
+/**
+ * Make sure to call ofxTesseract::SetInputName(""); first
+ * @see http://code.google.com/p/tesseract-ocr/issues/detail?id=463
+ * TODO: upgrade included libtesseract
+ */
 string ofxTesseract::findHOCRText(ofImage& img) {
 	ofRectangle roi(0, 0, img.getWidth(), img.getHeight());
 	return findHOCRText(img, roi);
@@ -99,9 +102,8 @@ string ofxTesseract::findHOCRText(ofImage& img, ofRectangle& roi) {
     );
 
     //returns 0
-    tess.Recognize(NULL);
+    //tess.Recognize(NULL);
     
-    //return tess.GetUTF8Text(); // works fine
-    return tess.GetHOCRText(0); //crash & burn
+    return tess.GetHOCRText(0);
 
 }

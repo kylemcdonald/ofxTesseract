@@ -29,11 +29,9 @@ public:
 	// dataPath is where to find a folder with tessdata inside
 	// default arguments assume bin/data/tessdata/eng.traineddata
 	void setup(string dataPath = "", bool absolute = false, string language = "eng");
-	
 
-    
+    //expose tesseract SetInputName - must be called before performing HOCR
     void setInputName(const char* name);
-
     
 	// you must call these after setup, contrary to the tesseract-ocr docs
 	// whitelist means only those characters are used
@@ -57,8 +55,12 @@ public:
 	// OF_IMAGE_COLOR and OF_IMAGE_GRAYSCALE are both fine
 	string findText(ofImage& img);
 	string findText(ofImage& img, ofRectangle& roi);
+    
+    //raw pixel data? why not!
 	string findText(ofPixels& pixels);
 	string findText(ofPixels& pixels, ofRectangle& roi);
+    
+    //HOCR goodness
     string findHOCRText(ofImage& img);
     string findHOCRText(ofImage& img, ofRectangle& roi);
     
