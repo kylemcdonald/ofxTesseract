@@ -9,12 +9,10 @@ void ofxTesseract::setup(string dataPath, bool absolute, string language) {
 	// so we override it by setting an environment variable
 	setenv("TESSDATA_PREFIX", absoluteTessdataPath.c_str(), 1);
 	tess.Init(absoluteTessdataPath.c_str(), language.c_str());
+	tess.SetInputName("");
 	setMode(AUTO);
 }
 
-void ofxTesseract::setInputName(const char* name) {
-    tess.SetInputName(name);
-}
 
 void ofxTesseract::setWhitelist(string whitelistCharacters) {
 	tess.SetVariable("tessedit_char_whitelist", whitelistCharacters.c_str());
@@ -66,12 +64,12 @@ string ofxTesseract::findText(ofPixels& pixels) {
 string ofxTesseract::findText(ofPixels& pixels, ofRectangle& roi) {
 	int bytesPerPixel = pixels.getBytesPerPixel();
 	return tess.TesseractRect(
-                              pixels.getPixels(),
-                              bytesPerPixel,
-                              pixels.getWidth() * bytesPerPixel,
-                              roi.x, roi.y,
-                              roi.width, roi.height
-                              );
+							  pixels.getPixels(),
+							  bytesPerPixel,
+							  pixels.getWidth() * bytesPerPixel,
+							  roi.x, roi.y,
+							  roi.width, roi.height
+							  );
 }
 
 /**
@@ -79,31 +77,27 @@ string ofxTesseract::findText(ofPixels& pixels, ofRectangle& roi) {
  * @see http://code.google.com/p/tesseract-ocr/issues/detail?id=463
  * TODO: upgrade included libtesseract
  */
-string ofxTesseract::findHOCRText(ofImage& img) {
+string ofxTesseract::findTextHocr(ofImage& img) {
 	ofRectangle roi(0, 0, img.getWidth(), img.getHeight());
-	return findHOCRText(img, roi);
+	return findTextHocr(img, roi);
 }
 
-string ofxTesseract::findHOCRText(ofImage& img, ofRectangle& roi) {
+string ofxTesseract::findTextHocr(ofImage& img, ofRectangle& roi) {
 	ofPixels& pixels = img.getPixelsRef();
 	int bytesPerPixel = pixels.getBytesPerPixel();
 
-    tess.SetImage(
-        pixels.getPixels(),
-        img.getWidth(),
-        img.getHeight(),
-        bytesPerPixel,
-        pixels.getWidth() * bytesPerPixel
-    );
-    
-    tess.SetRectangle(
-        roi.x, roi.y,
-        roi.width, roi.height
-    );
+	tess.SetImage(
+				  pixels.getPixels(),
+				  img.getWidth(),
+				  img.getHeight(),
+				  bytesPerPixel,
+				  pixels.getWidth() * bytesPerPixel
+	);
+	
+	tess.SetRectangle(
+					  roi.x, roi.y,
+					  roi.width, roi.height
+	);
 
-    //returns 0
-    //tess.Recognize(NULL);
-    
-    return tess.GetHOCRText(0);
-
+	return tess.GetHOCRText(0);
 }
