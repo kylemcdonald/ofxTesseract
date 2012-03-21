@@ -12,6 +12,11 @@ void ofxTesseract::setup(string dataPath, bool absolute, string language) {
 	setMode(AUTO);
 }
 
+void ofxTesseract::setInputName(const char* name) {
+    tess.SetInputName(name);
+}
+
+
 void ofxTesseract::setWhitelist(string whitelistCharacters) {
 	tess.SetVariable("tessedit_char_whitelist", whitelistCharacters.c_str());
 }
@@ -51,14 +56,23 @@ string ofxTesseract::findText(ofImage& img) {
 
 string ofxTesseract::findText(ofImage& img, ofRectangle& roi) {
 	ofPixels& pixels = img.getPixelsRef();
+	return findText(pixels, roi);
+}
+
+string ofxTesseract::findText(ofPixels& pixels) {
+	ofRectangle roi(0, 0, pixels.getWidth(), pixels.getHeight());
+	return findText(pixels, roi);
+}
+
+string ofxTesseract::findText(ofPixels& pixels, ofRectangle& roi) {
 	int bytesPerPixel = pixels.getBytesPerPixel();
 	return tess.TesseractRect(
-		pixels.getPixels(),
-		bytesPerPixel,
-		pixels.getWidth() * bytesPerPixel,
-		roi.x, roi.y,
-		roi.width, roi.height
-	);
+                              pixels.getPixels(),
+                              bytesPerPixel,
+                              pixels.getWidth() * bytesPerPixel,
+                              roi.x, roi.y,
+                              roi.width, roi.height
+                              );
 }
 
 
@@ -70,7 +84,7 @@ string ofxTesseract::findHOCRText(ofImage& img) {
 string ofxTesseract::findHOCRText(ofImage& img, ofRectangle& roi) {
 	ofPixels& pixels = img.getPixelsRef();
 	int bytesPerPixel = pixels.getBytesPerPixel();
- 
+
     tess.SetImage(
         pixels.getPixels(),
         img.getWidth(),

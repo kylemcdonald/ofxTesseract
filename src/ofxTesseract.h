@@ -30,6 +30,11 @@ public:
 	// default arguments assume bin/data/tessdata/eng.traineddata
 	void setup(string dataPath = "", bool absolute = false, string language = "eng");
 	
+
+    
+    void setInputName(const char* name);
+
+    
 	// you must call these after setup, contrary to the tesseract-ocr docs
 	// whitelist means only those characters are used
 	void setWhitelist(string whitelistCharacters);
@@ -52,7 +57,8 @@ public:
 	// OF_IMAGE_COLOR and OF_IMAGE_GRAYSCALE are both fine
 	string findText(ofImage& img);
 	string findText(ofImage& img, ofRectangle& roi);
-	
+	string findText(ofPixels& pixels);
+	string findText(ofPixels& pixels, ofRectangle& roi);
     string findHOCRText(ofImage& img);
     string findHOCRText(ofImage& img, ofRectangle& roi);
     
