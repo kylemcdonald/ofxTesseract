@@ -1,4 +1,6 @@
-ofxTesseract is a simple wrapper for tesseract-ocr in openFrameworks.
+# ofxTesseract is an addon for openFrameworks that provides access to the Tesseract OCR library.
+
+## Overview
 
 I've included a copy of eng.traineddata in the example, but if you need a newer one or a different language you can get it from the tesseract-ocr website:
 
@@ -21,3 +23,13 @@ tess.setAccuracy(ofxTesseract::ACCURATE);
 img.loadImage("text.png");
 string result = ocr.findText(img);
 cout << result << endl;
+
+## Building Tesseract
+
+If you need to build the library from scratch, you need to be familiar with [building static libraries](http://thecoredump.org/2004/02/building-a-gnu-autoconf-static-library/). For Tesseract, after downloading the source, it looks something like this:
+
+	cd /Users/username/tesseract
+	./runautoconf
+	./configure --disable-shared --enable-static --prefix=/Users/username/tesseract
+	make
+	sudo make install
