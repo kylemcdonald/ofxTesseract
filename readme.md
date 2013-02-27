@@ -1,5 +1,7 @@
 # ofxTesseract is an addon for openFrameworks that provides access to the Tesseract OCR library.
 
+*Warning: the training data provided here causes a segmentation fault in some cases. Please use the [latest version](http://code.google.com/p/tesseract-ocr/downloads/list?can=2&q=eng.tar.gz&colspec=Filename+Summary+Uploaded+ReleaseDate+Size+DownloadCount) available from the Tesseract project.*
+
 ## Overview
 
 I've included a copy of eng.traineddata in the example, but if you need a newer one or a different language you can get it from the tesseract-ocr website:
