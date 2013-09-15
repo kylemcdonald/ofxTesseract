@@ -14,6 +14,7 @@ myApp/bin/data/tessdata/eng.traineddatat
 
 Example usage of ofxTesseract looks like:
 
+```cpp
 #include "ofxTesseract.h"
 ...
 ofxTesseract ocr;
@@ -25,6 +26,7 @@ tess.setAccuracy(ofxTesseract::ACCURATE);
 img.loadImage("text.png");
 string result = ocr.findText(img);
 cout << result << endl;
+```
 
 ## Building Tesseract
 
