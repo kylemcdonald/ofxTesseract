@@ -1,10 +1,14 @@
-#include "testApp.h"
+#include "ofApp.h"
 
-void testApp::setup(){
-	panel.setup();
-	panel.addPanel("Preprocessing");
-	panel.addSlider("scale", "scale", 2.5, 1, 4);
-	panel.addSlider("medianSize", "medianSize", 2, 0, 12, true);
+void ofApp::setup(){
+
+	gui.setup(); // most of the time you don't need a name
+
+	process.addListener(this,&ofApp::processButtonPressed);
+
+	gui.add(scale.setup( "scale", 2.5, 1, 4 ));
+	gui.add(medianSize.setup( "medianSize", 2, 0, 12 ));
+	gui.add(process.setup("process"));
 
 	tess.setup();
 	tess.setWhitelist("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,");
@@ -14,17 +18,22 @@ void testApp::setup(){
 	img.loadImage("article.png");
 	img.setImageType(OF_IMAGE_GRAYSCALE);
 	img.update();
+
+
+    ocrResult = runOcr(scale, medianSize);
 }
 
-void testApp::update(){
-	if(panel.hasValueChanged("scale") || panel.hasValueChanged("medianSize")) {
-		ocrResult = runOcr(panel.getValueF("scale"), panel.getValueI("medianSize"));
-		scaled.update();
-		panel.clearAllChanged();
-	}
+void ofApp::processButtonPressed()
+{
+    ocrResult = runOcr(scale, medianSize);
 }
 
-void testApp::draw(){	
+
+void ofApp::update(){
+}
+
+
+void ofApp::draw(){
 	ofPushMatrix();
 	
 	ofTranslate(300, 0);
@@ -40,18 +49,22 @@ void testApp::draw(){
 	scaled.draw(0, 400);
 	
 	ofPopMatrix();
+
+    gui.draw();
+
 }
 
 // depending on the source of the text you want to OCR,
 // you might need to preprocess it. here i'm doing a
 // simple resize followed by a median blur.
-string testApp::runOcr(float scale, int medianSize) {
+string ofApp::runOcr(float scale, int medianSize) {
 	scaled = img;
 	
 	// resize and median blur the image
 	scaled.resize(img.getWidth() * scale, img.getHeight() * scale);
+
 	medianBlur(scaled, medianSize);
-	
+
 	return tess.findText(scaled);
 }
 
