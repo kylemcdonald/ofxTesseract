@@ -1,12 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
 #include "ofxTesseract.h"
-#include "ofxAutoControlPanel.h"
 #include "CvUtils.h"
+
 using namespace cv;
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -18,5 +19,14 @@ class testApp : public ofBaseApp{
 		ofxTesseract tess;
 		ofImage img, scaled;
 		string ocrResult;
-		ofxAutoControlPanel panel;
+
+        ofxFloatSlider scale;
+        ofxIntSlider medianSize;
+
+        ofxButton process;
+
+        ofxPanel gui;
+
+        void processButtonPressed();
+
 };
